@@ -1,0 +1,10 @@
+[server]
+init_file = /etc/mysql/init.sql # Specifies the path to an SQL file 
+
+[mysqld]
+user				= root # Run MariaDB as root
+socket				= /run/mysqld/mysqld.sock # Path the Unix socket file
+port				= 3306 # Comunication port
+datadir				= /var/lib/mysql # Directory for storing MariaDB data files
+skip-networking		= 0 # Allow the server to accept connections from other machines
+bind-address		= 0.0.0.0 # Listening on all available network interfaces

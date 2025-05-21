@@ -1,6 +1,10 @@
 #!/bin/sh
 set -e
 
+# Wokring environement
+mkdir -p /var/www/html
+cd /var/www/html
+
 # Download and install WP-CLI
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar

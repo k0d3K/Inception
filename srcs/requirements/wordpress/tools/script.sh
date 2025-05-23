@@ -5,18 +5,18 @@ set -e
 mkdir -p /var/www/html
 cd /var/www/html
 
+# Use full path to wp
+WP="/usr/local/bin/wp"
+
 # Download and install WP-CLI if not already there
-if [ ! -f /usr/local/bin/wp ]; then
+if [ ! -f $WP ]; then
   curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
   chmod +x wp-cli.phar
   mv wp-cli.phar /usr/local/bin/wp
 fi
 
-# Use full path to wp
-WP="/usr/local/bin/wp"
-
 # Install WordPress if not already installed
-if [ ! -f /var/www/html/wp-config.php ]; then
+if [ ! -f wp-config.php ]; then
 
   $WP core download --allow-root
 
@@ -41,6 +41,8 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     --allow-root
 
   $WP user set-role 2 editor --allow-root
+
+  $WP theme install oceanwp --activate --allow-root
 
 fi
 

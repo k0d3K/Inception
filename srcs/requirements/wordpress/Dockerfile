@@ -1,8 +1,7 @@
 FROM	debian:bullseye
 
 # Install PHP and extensions
-RUN		apt update -y && apt upgrade -y && apt install -y curl php-fpm
-# php-mysqli
+RUN		apt update -y && apt upgrade -y && apt install -y curl php-fpm php-mysqli
 
 # Setup rights
 RUN		mkdir -p /run/php && chown www-data:www-data /run/php

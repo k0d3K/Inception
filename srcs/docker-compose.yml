@@ -19,7 +19,7 @@ services:
   nginx:
     container_name: nginx
     build: ./requirements/nginx
-    image: nginx:custom
+    # image: nginx:custom
     networks:
       - inception
     volumes:
@@ -33,7 +33,7 @@ services:
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
-    image: wordpress:custom
+    # image: wordpress:custom
     networks:
       - inception
     volumes:
@@ -49,7 +49,7 @@ services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
-    image: mariadb:custom
+    # image: mariadb:custom
     networks:
       - inception
     volumes:

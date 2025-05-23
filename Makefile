@@ -34,22 +34,22 @@ $(DISPLAY_TRACKER):
 		touch $(DISPLAY_TRACKER)
 
 up		: $(DISPLAY_TRACKER)
-		mkdir -p /home/$(LOGIN)/data
 		mkdir -p /home/$(LOGIN)/data/mariadb
 		mkdir -p /home/$(LOGIN)/data/wordpress
 		docker compose -f ./srcs/docker-compose.yml up -d
 
 down	:
-		printf "\n🔧 $(GREEN)Down containers$(RESET) 🔧\n\n"
+		printf "\n $(GREEN)Down containers$(RESET) \n\n"
 		docker compose -f ./srcs/docker-compose.yml down
 
 clean	: down
-		printf "\n🔧 $(GREEN)Delete home/$(LOGIN)/data$(RESET) 🔧\n\n"
+		printf "\n $(GREEN)Delete home/$(LOGIN)/data$(RESET) \n\n"
 		sudo rm -rf /home/$(LOGIN)/data
 		rm -f $(DISPLAY_TRACKER)
 
 fclean	: clean
-		printf "\n🔧 $(GREEN)Delete containers images$(RESET) 🔧\n\n"
+		printf "\n $(GREEN)Delete containers images$(RESET) \n\n"
+		docker system prune -af
 
 re		: fclean all
 

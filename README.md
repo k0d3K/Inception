@@ -25,6 +25,13 @@ Make sure the following tools are installed:
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - `make` utility
+- root privileges
+- your user must be in the docker group. If not yout luanch:
+```
+sudo usermod -aG docker $USER
+```
+
+I strongly recommand creating a special Virtual Machine for this project and setting your user login so that is fits the domain name you want.
 
 ---
 
@@ -43,11 +50,11 @@ This will:
 
 ### 🔐 HTTPS Certificate
 
-This project uses a self-signed certificate. When accessing https://<your-domain>, you may receive a browser warning. You can safely bypass this during development.
+This project uses a self-signed certificate. When accessing https://<your-login>.42.fr, you may receive a browser warning. You can safely bypass this during development.
 
 You can log in by accesing :
 ```
-https://<your-domain>/wp-admin
+https://<your-login>.42.fr/wp-admin
 ```
 
 🚢 Welcome to the Docker world!

@@ -1,6 +1,6 @@
 #==================== PARAM =====================#
 
-LOGIN 			=	lguerbig
+LOGIN			=	$(USER)
 DISPLAY_TRACKER	:=	.display_done
 
 #==================== COLOR =====================#
@@ -20,13 +20,13 @@ all		: up
 
 $(DISPLAY_TRACKER):
 		echo
-		echo "  ______                                        __ "
-		echo " /\\__  _\\                                      /\\ \\__    __ "
-		echo " \\/_/\\ \\/      ___      ___      __    _____   \\ \\ ,_\\  /\\_\\     ___     ___ "
-		echo "    \\ \\ \\    /' _ \`\\   /'___\\  /'__\`\\ /\\ '__\`\\  \\ \\ \\/  \\/\\ \\   / __\`\\ /' _ \`\\ "
-		echo "     \\_\\ \\__ /\\ \\/\\ \\ /\\ \\__/ /\\  __/ \\ \\ \\L\\ \\  \\ \\ \\_  \\ \\ \\ /\\ \\L\\ \\/\\ \\/\\ \\ "
-		echo "     /\\_____\\\\\ \\_\\ \\_\\\\\ \\____\\\\\\ \\____\\ \\ \\ ,__/   \\ \\__\\  \\ \\_\\\\\ \\____/\\ \\_\\ \\_\\ "
-		echo "     \\/_____/ \\/_/\\/_/ \\/____/ \\/____/  \\ \\ \\/     \\/__/   \\/_/ \\/___/  \\/_/\\/_/ "
+		echo "  ______                                       __ "
+		echo " /\\__  _\\                                     /\\ \\__   __ "
+		echo " \\/_/\\ \\/      ___      ___      __    _____  \\ \\ ,_\\ /\\_\\     ___     ___ "
+		echo "    \\ \\ \\    /' _ \`\\   /'___\\  /'__\`\\ /\\ '__\`\\ \\ \\ \\/ \\/\\ \\   / __\`\\ /' _ \`\\ "
+		echo "     \\_\\ \\__ /\\ \\/\\ \\ /\\ \\__/ /\\  __/ \\ \\ \\L\\ \\ \\ \\ \\_ \\ \\ \\ /\\ \\L\\ \\/\\ \\/\\ \\ "
+		echo "     /\\_____\\\\\ \\_\\ \\_\\\\\ \\____\\\\\\ \\____\\ \\ \\ ,__/  \\ \\__\\ \\ \\_\\\\\ \\____/\\ \\_\\ \\_\\ "
+		echo "     \\/_____/ \\/_/\\/_/ \\/____/ \\/____/  \\ \\ \\/    \\/__/  \\/_/ \\/___/  \\/_/\\/_/ "
 		echo "                                         \\ \\_\\ "
 		echo "                                          \\/_/"
 		echo
@@ -39,17 +39,17 @@ up		: $(DISPLAY_TRACKER)
 		docker compose -f ./srcs/docker-compose.yml up -d
 
 down	:
-		printf "\n $(GREEN)Down containers$(RESET) \n\n"
-		docker compose -f ./srcs/docker-compose.yml down
+		printf "\n $(GREEN)Containers down$(RESET) \n"
+		docker compose -f ./srcs/docker-compose.yml down -v
 
 clean	: down
-		printf "\n $(GREEN)Delete home/$(LOGIN)/data$(RESET) \n\n"
-		sudo rm -rf /home/$(LOGIN)/data
+		printf "\n $(GREEN)Delete home/$(LOGIN)/data$(RESET) \n"
+		rm -rf /home/$(LOGIN)/data
 		rm -f $(DISPLAY_TRACKER)
 
 fclean	: clean
-		printf "\n $(GREEN)Delete containers images$(RESET) \n\n"
-		docker system prune -af
+		printf "\n $(GREEN)Delete containers images$(RESET) \n"
+		docker system prune -af --volumes
 
 re		: fclean all
 

@@ -34,8 +34,8 @@ $(DISPLAY_TRACKER):
 		touch $(DISPLAY_TRACKER)
 
 up		: $(DISPLAY_TRACKER)
-		mkdir -p /home/$(LOGIN)/data/mariadb
-		mkdir -p /home/$(LOGIN)/data/wordpress
+		mkdir -p /home/$(LOGIN)/data/mariadb && sudo chown -R $(LOGIN):$(LOGIN) /home/$(LOGIN)/data/mariadb
+		mkdir -p /home/$(LOGIN)/data/wordpress && sudo chown -R $(LOGIN):$(LOGIN) /home/$(LOGIN)/data/wordpress
 		docker compose -f ./srcs/docker-compose.yml up -d
 
 down	:

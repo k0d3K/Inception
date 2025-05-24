@@ -20,18 +20,21 @@ Everything is orchestrated via `docker-compose` and managed using a `Makefile`.
 
 ### ✅ Prerequisites
 
-Make sure the following tools are installed:
+Before running the project, make sure the following tools are installed:
 
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - `make` utility
-- root privileges
-- your user must be in the docker group. If not yout luanch:
-```
+- Your user must be in the `docker` group. If not, luanch:
+```bash
 sudo usermod -aG docker $USER
 ```
+> 🔄 Note: After adding your user to the `docker` group, a logout/login is required for the change to apply.
 
-I strongly recommand creating a special Virtual Machine for this project and setting your user login so that is fits the domain name you want.
+### 💡 Recommendation
+
+It is strongly recommended to use a dedicated Virtual Machine for this project.  
+Set the VM’s username to match the domain name you plan to use (e.g., `lguerbig` for `lguerbig.42.fr`) to simplify path and permission management.
 
 ---
 

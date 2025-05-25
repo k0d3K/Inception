@@ -34,9 +34,10 @@ $(DISPLAY_TRACKER):
 		touch $(DISPLAY_TRACKER)
 
 up		: $(DISPLAY_TRACKER)
-		mkdir -p /home/$(LOGIN)/data/mariadb && sudo chown -R $(LOGIN):$(LOGIN) /home/$(LOGIN)/data/mariadb
-		mkdir -p /home/$(LOGIN)/data/wordpress && sudo chown -R $(LOGIN):$(LOGIN) /home/$(LOGIN)/data/wordpress
+		mkdir -p /home/$(LOGIN)/data/mariadb
+		mkdir -p /home/$(LOGIN)/data/wordpress
 		docker compose -f ./srcs/docker-compose.yml up -d
+		# chown -R $(LOGIN):$(LOGIN) /home/$(LOGIN)/data
 
 down	:
 		printf "\n $(GREEN)Containers down$(RESET) \n"
@@ -44,16 +45,16 @@ down	:
 
 clean	: down
 		printf "\n $(GREEN)Delete home/$(LOGIN)/data$(RESET) \n"
-		rm -rf /home/$(LOGIN)/data
+		sudo rm -rf /home/$(LOGIN)/data
 		rm -f $(DISPLAY_TRACKER)
 
 fclean	: clean
 		printf "\n $(GREEN)Delete containers images$(RESET) \n"
-		docker system prune -af --volumes
+		docker system prune -af
 
 re		: fclean all
 
-.PHONY	=	all up down clean fclean re
+.PHONY	=	all up down clean fclean re $(DISPLAY_TRACKER)
 
 ifndef VERBOSE
 .SILENT:

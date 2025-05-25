@@ -25,7 +25,8 @@ Before running the project, make sure the following tools are installed:
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - `make` utility
-- Your user must be in the `docker` group. If not, luanch:
+- root privileges
+Your user must also be in the `docker` group. If not, launch:
 ```bash
 sudo usermod -aG docker $USER
 ```
@@ -48,19 +49,24 @@ make
 
 This will:
 - Print a cool ASCII logo 😎
+- Build the containers images
 - Create required volumes under `/home/<your-login>/data/`
 - Start all containers in the background
+
+---
 
 ### 🔐 HTTPS Certificate
 
 This project uses a self-signed certificate. When accessing https://<your-login>.42.fr, you may receive a browser warning. You can safely bypass this during development.
 
-You can log in by accesing :
+You can log in by accessing :
 ```
 https://<your-login>.42.fr/wp-admin
 ```
 
 🚢 Welcome to the Docker world!
+
+---
 
 👨‍💻 Author
 - lguerbig

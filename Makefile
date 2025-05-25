@@ -37,7 +37,6 @@ up		: $(DISPLAY_TRACKER)
 		mkdir -p /home/$(LOGIN)/data/mariadb
 		mkdir -p /home/$(LOGIN)/data/wordpress
 		docker compose -f ./srcs/docker-compose.yml up -d
-		# chown -R $(LOGIN):$(LOGIN) /home/$(LOGIN)/data
 
 down	:
 		printf "\n $(GREEN)Containers down$(RESET) \n"
@@ -50,7 +49,7 @@ clean	: down
 
 fclean	: clean
 		printf "\n $(GREEN)Delete containers images$(RESET) \n"
-		docker system prune -af
+		docker system prune -af --volumes
 
 re		: fclean all
 

@@ -41,7 +41,16 @@ Set the VM’s username to match the domain name you plan to use (e.g., `lguerbi
 
 ### 🛠️ Setup & Launch
 
-Run the following in the root of your project:
+First, add the following line to your local /etc/hosts file to map the domain to localhost:
+```
+127.0.0.1 <your-login>.42.fr
+```
+You can do this by editing the file with:
+```
+sudo nano /etc/hosts
+```
+
+Then run the following in the root of your project:
 
 ```bash
 make

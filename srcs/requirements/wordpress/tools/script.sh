@@ -44,6 +44,17 @@ if [ ! -f wp-config.php ]; then
 
   $WP theme install oceanwp --activate --allow-root
 
+  #BONUS
+  $WP plugin install redis-cache --activate --allow-root
+
+  $WP config set WP_REDIS_HOST redis --allow-root
+
+  $WP config set WP_REDIS_PORT 6379 --allow-root
+
+  $WP plugin update --all --allow-root
+
+  $WP redis enable --allow-root
+
 fi
 
 exec "$@"

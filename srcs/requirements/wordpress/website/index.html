@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inception - Docker-based WordPress Project</title>
+  <style>
+    body {
+      font-family: Consolas, Monaco, 'Courier New', monospace;
+      background-color: #121212;
+      color: #e0e0e0;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #4fc3f7;
+    }
+    a {
+      color: #81d4fa;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    pre {
+      background-color: #1e1e1e;
+      color: #cfcfcf;
+      padding: 1rem;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-size: 0.95rem;
+    }
+    blockquote {
+      border-left: 4px solid #4fc3f7;
+      padding-left: 1rem;
+      color: #ccc;
+      margin: 1rem 0;
+      background-color: #1c1c1c;
+      font-style: italic;
+    }
+    ul {
+      padding-left: 1.5rem;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #333;
+      margin: 2rem 0;
+    }
+    code {
+      background: #1f1f1f;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      color: #e1f5fe;
+    }
+    .emoji {
+      font-size: 2.2rem;
+      margin-right: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Inception</h1>
+  <blockquote>
+    A Docker-based project to set up a fully functional WordPress website with Nginx, MariaDB, and PHP-FPM — as required by the 42 Inception project.
+  </blockquote>
+
+  <h2><span class="emoji">🧩</span> Overview</h2>
+  <p>This project automates the deployment of a WordPress site using Docker containers. It includes:</p>
+  <ul>
+    <li><strong>Nginx</strong>: Web server with HTTPS enabled via a self-signed certificate.</li>
+    <li><strong>MariaDB</strong>: Lightweight and fast database server.</li>
+    <li><strong>WordPress</strong>: Content management system.
+      <ul>
+        <li><strong>PHP-FPM</strong>: To serve dynamic content.</li>
+        <li><strong>WP-CLI</strong>: For headless WordPress configuration.</li>
+      </ul>
+    </li>
+  </ul>
+  <p>Everything is orchestrated via <code>docker-compose</code> and managed using a <code>Makefile</code>.</p>
+
+  <hr />
+
+  <h2><span class="emoji">🚀</span> Quick Start</h2>
+
+  <h3><span class="emoji">⚠️</span> Prerequisites</h3>
+  <p>Before running the project, make sure the following tools are installed:</p>
+  <ul>
+    <li><a href="https://docs.docker.com/get-docker/" target="_blank">Docker</a></li>
+    <li><a href="https://docs.docker.com/compose/install/" target="_blank">Docker Compose</a></li>
+    <li><code>make</code> utility</li>
+    <li>root privileges</li>
+  </ul>
+  <p>Your user must also be in the <code>docker</code> group. If not, launch:</p>
+  <pre><code>sudo usermod -aG docker $USER</code></pre>
+  <blockquote>🔄 Note: After adding your user to the <code>docker</code> group, a logout/login is required for the change to apply.</blockquote>
+
+  <h3><span class="emoji">💡</span> Recommendation</h3>
+  <p>It is strongly recommended to use a dedicated Virtual Machine for this project.<br />
+  Set the VM’s username to match the domain name you plan to use (e.g., <code>lguerbig</code> for <code>lguerbig.42.fr</code>).</p>
+
+  <hr />
+
+  <h3><span class="emoji">🛠️</span> Setup & Launch</h3>
+  <p>First, edit your local <code>/etc/hosts</code> file and add:</p>
+  <pre><code>127.0.0.1 &lt;your-login&gt;.42.fr</code></pre>
+  <p>Command:</p>
+  <pre><code>sudo nano /etc/hosts</code></pre>
+  <p>Then in the project root:</p>
+  <pre><code>make</code></pre>
+  <p>This will:</p>
+  <ul>
+    <li>Print a cool ASCII logo 😎</li>
+    <li>Build the containers</li>
+    <li>Create volumes under <code>/home/&lt;your-login&gt;/data/</code></li>
+    <li>Start containers in the background</li>
+  </ul>
+
+  <hr />
+
+  <h3><span class="emoji">🔐</span> HTTPS Certificate</h3>
+  <p>Self-signed certificate in use. Browser may warn on:</p>
+  <code>https://&lt;your-login&gt;.42.fr</code><br />
+  <p>You can bypass it safely during development. Admin login at:</p>
+  <code>https://&lt;your-login&gt;.42.fr/wp-admin</code>
+
+  <h2><span class="emoji">✅</span> Test everything</h2>
+
+  <h3><span class="emoji">🌐</span> Manda</h3>
+  <p>Access the site in Firefox. Accept the self-signed certificate:</p>
+  <ul>
+    <li>Click "Advanced..."</li>
+    <li>Then "Accept the Risk and Continue"</li>
+  </ul>
+
+  <h3>Redis cache system</h3>
+  <p>Check Redis is active:</p>
+  <pre><code>docker exec -it redis sh
+redis-cli -h redis ping</code></pre>
+  <p>Should return <code>PONG</code>.</p>
+
+  <h3>FTP Server</h3>
+  <p>Access with:</p>
+  <pre><code>ftp localhost 21</code></pre>
+  <p>Login as <code>&lt;your-login&gt;</code>, password <code>1234</code> (from <code>.env</code>).</p>
+  <p>Download:</p>
+  <pre><code>get &lt;filename&gt;</code></pre>
+  <p>Upload:</p>
+  <pre><code>put &lt;filename&gt;</code></pre>
+  <p>List files:</p>
+  <pre><code>ls</code></pre>
+
+  <p>🚢 Welcome to the Docker world!</p>
+
+  <hr />
+
+  <h3>👨‍💻 Author</h3>
+  <ul>
+    <li>lguerbig</li>
+  </ul>
+</body>
+</html>

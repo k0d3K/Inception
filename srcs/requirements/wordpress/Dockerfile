@@ -10,6 +10,9 @@ RUN		mkdir -p /run/php && chown www-data:www-data /run/php
 COPY	./config/www.conf /etc/php/7.4/fpm/pool.d
 WORKDIR	/var/www/html
 
+# Copy your static site files into the container's web root (BONUS)
+COPY ./website/index.html /var/www/html/
+
 # Copy the script
 COPY	./tools/script.sh .
 RUN		chmod +x script.sh

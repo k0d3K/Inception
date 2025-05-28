@@ -88,6 +88,17 @@ services:
       - inception
     restart: on-failure
 
+  adminer:
+    container_name: adminer
+    image: adminer:42
+    build: ./requirements/bonus/adminer
+    networks:
+      - inception
+    depends_on:
+      - wordpress
+      - mariadb
+    restart: on-failure
+
 networks:
   inception:
     name: inception

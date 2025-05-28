@@ -71,6 +71,23 @@ services:
       - inception
     restart: on-failure
 
+  ftp:
+    container_name: ftp
+    build: requirements/bonus/ftp
+    image: redis:42
+    ports:
+      - "21:21"
+      - "21100-21110:21100-21110"
+    volumes:
+      - "wordpress:/var/www/html"
+    depends_on:
+      - wordpress
+    env_file:
+      - .env
+    networks:
+      - inception
+    restart: on-failure
+
 networks:
   inception:
     name: inception

@@ -18,7 +18,7 @@ Everything is orchestrated via `docker-compose` and managed using a `Makefile`.
 
 ## 🚀 Quick Start
 
-### ✅ Prerequisites
+### ⚠️ Prerequisites
 
 Before running the project, make sure the following tools are installed:
 
@@ -68,10 +68,41 @@ This will:
 
 This project uses a self-signed certificate. When accessing https://<your-login>.42.fr, you may receive a browser warning. You can safely bypass this during development.
 
-You can log in by accessing :
+You can log in by accessing `https://<your-login>.42.fr/wp-admin`.
+
+## ✅ Test everything
+
+### 🌐 Manda
+
+Connect to `<your-login>.42.fr` on firefox. It handles self-signed certificates best.
+You will see a warning "Potential Security Risk Ahead" due to self-signed certificate, you can safely clic oin `Advanced...` and then `Accept the Risk and Continue`.
+
+### Redis cache system
+
+To check that the Redis chache sytemt is working proprely you can ping the server inside the Redis container:
 ```
-https://<your-login>.42.fr/wp-admin
+docker exec -it redis sh
+redis-cli -h redis ping
 ```
+You should see PONG if it’s working.
+
+### FTP server
+
+You can can access the FTP server with:
+```bash
+ftp localhost 21
+```
+You will log in with `<your-login>` and the password `1234` as set in the .env file.
+You can now download files from the server using:
+```bash
+get <filename>
+```
+and upload files using:
+```bash
+put <filename>
+```
+The `ls` command can then list the files in the server curent directory.
+
 
 🚢 Welcome to the Docker world!
 

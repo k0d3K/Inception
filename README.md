@@ -37,8 +37,6 @@ sudo usermod -aG docker $USER
 It is strongly recommended to use a dedicated Virtual Machine for this project.  
 Set the VM’s username to match the domain name you plan to use (e.g., `lguerbig` for `lguerbig.42.fr`) to simplify path and permission management.
 
----
-
 ### 🛠️ Setup & Launch
 
 First, add the following line to your local /etc/hosts file to map the domain to localhost:
@@ -62,20 +60,50 @@ This will:
 - Create required volumes under `/home/<your-login>/data/`
 - Start all containers in the background
 
----
-
 ### 🔐 HTTPS Certificate
 
 This project uses a self-signed certificate. When accessing https://<your-login>.42.fr, you may receive a browser warning. You can safely bypass this during development.
 
 You can log in by accessing `https://<your-login>.42.fr/wp-admin`.
 
+---
+
+## 🧠 Quick explanations
+
+### What is Docker?
+
+Docker is a platform that enables you to package and run applications in isolated environments called containers. Each container contains everything needed to run a piece of software, including code, runtime, libraries, and system tools. This makes your application portable, consistent, and easy to deploy across different environments.
+
+### Containers used in this project
+
+- **Nginx**:  
+  This is the web server. It handles all the requests from your browser, shows static files like images, and sends PHP requests to the WordPress container. It also makes sure your website uses HTTPS (secure connection).
+
+- **MariaDB**:  
+  This is the database. It stores all the data for your WordPress site, like posts, user accounts, and settings.
+
+- **WordPress (with PHP-FPM)**:  
+  This runs the WordPress software that creates your website. It uses PHP to generate pages and talks to the MariaDB database to get the data it needs.
+
+- **Redis (optional bonus)**:  
+  This is a fast memory storage used to keep temporary data. It helps make your website faster by reducing how often WordPress needs to ask the database for information.
+
+- **FTP server (optional bonus)**:  
+  Lets you download, upload and manage files on your WordPress site using the FTP protocol.
+
+- **Adminer (optional bonus)**:  
+  A simple web tool to manage your database. It lets you look at and change your MariaDB data through your browser.
+
+All these containers work together inside Docker, each doing their own job but talking to each other so your website runs smoothly.
+
+---
+
 ## ✅ Test everything
 
 ### 🌐 Manda
 
 Connect to `<your-login>.42.fr` on firefox. It handles self-signed certificates best.
-You will see a warning "Potential Security Risk Ahead" due to self-signed certificate, you can safely clic oin `Advanced...` and then `Accept the Risk and Continue`.
+You will see a warning "Potential Security Risk Ahead" due to self-signed certificate, you can safely click oin `Advanced...` and then `Accept the Risk and Continue`.
 
 ### Redis cache system
 
@@ -84,11 +112,11 @@ To check that the Redis chache sytemt is working proprely you can ping the serve
 docker exec -it redis sh
 redis-cli -h redis ping
 ```
-You should see PONG if it’s working.
+You should see “PONG” if the Redis server is responding properly.
 
 ### FTP server
 
-You can can access the FTP server with:
+You can access the FTP server with:
 ```bash
 ftp localhost 21
 ```
@@ -101,12 +129,24 @@ and upload files using:
 ```bash
 put <filename>
 ```
-The `ls` command can then list the files in the server curent directory.
+The `ls` command can then list the files in the server current directory.
 
+### Adminer
 
-🚢 Welcome to the Docker world!
+You can acces it trought :
+```
+https://<your-login>.42.fr/adminer
+```
+In the login form, enter:
+	- System: MySQL
+	- Server: mariadb
+	- Username: <your-login>
+	- Password: 1234
+	- Database: wordpress
 
 ---
+
+🚢 Welcome to the Docker world!
 
 👨‍💻 Author
 - lguerbig

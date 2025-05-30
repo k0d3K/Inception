@@ -92,7 +92,7 @@
     <li><code>make</code> utility</li>
     <li>root privileges</li>
   </ul>
-  <p>Your user must also be in the <code>docker</code> group. If not, launch:</p>
+  <p>Your user must also be in the <code>docker</code> group. If not, run:</p>
   <pre><code>sudo usermod -aG docker $USER</code></pre>
   <blockquote>🔄 Note: After adding your user to the <code>docker</code> group, a logout/login is required for the change to apply.</blockquote>
 
@@ -103,9 +103,9 @@
   <hr />
 
   <h3><span class="emoji">🛠️</span> Setup & Launch</h3>
-  <p>First, edit your local <code>/etc/hosts</code> file and add:</p>
+  <p>Edit your local <code>/etc/hosts</code> file and add:</p>
   <pre><code>127.0.0.1 &lt;your-login&gt;.42.fr</code></pre>
-  <p>Command:</p>
+  <p>Edit using:</p>
   <pre><code>sudo nano /etc/hosts</code></pre>
   <p>Then in the project root:</p>
   <pre><code>make</code></pre>
@@ -121,9 +121,29 @@
 
   <h3><span class="emoji">🔐</span> HTTPS Certificate</h3>
   <p>Self-signed certificate in use. Browser may warn on:</p>
-  <code>https://&lt;your-login&gt;.42.fr</code><br />
-  <p>You can bypass it safely during development. Admin login at:</p>
-  <code>https://&lt;your-login&gt;.42.fr/wp-admin</code>
+  <pre><code>https://&lt;your-login&gt;.42.fr</code></pre>
+  <p>Admin login at:</p>
+  <pre><code>https://&lt;your-login&gt;.42.fr/wp-admin</code></pre>
+
+  <hr />
+
+  <h2><span class="emoji">🧠</span> Quick explanations</h2>
+
+  <h3>What is Docker?</h3>
+  <p>Docker lets you package and run applications in isolated environments called containers. Each container contains everything it needs to run — making deployment reliable and portable.</p>
+
+  <h3>Containers used in this project</h3>
+  <ul>
+    <li><strong>Nginx:</strong> The web server that handles requests and manages HTTPS.</li>
+    <li><strong>MariaDB:</strong> Stores your WordPress content and settings.</li>
+    <li><strong>WordPress with PHP-FPM:</strong> Runs WordPress logic, generates pages, and connects to MariaDB.</li>
+    <li><strong>Redis (bonus):</strong> In-memory cache to speed up the site.</li>
+    <li><strong>FTP server (bonus):</strong> Lets you transfer files in/out of the site.</li>
+    <li><strong>Adminer (bonus):</strong> Browser-based tool to manage the database.</li>
+    <li><strong>Netdata (bonus):</strong> Real-time monitoring dashboard for your stack.</li>
+  </ul>
+
+  <hr />
 
   <h2><span class="emoji">✅</span> Test everything</h2>
 
@@ -151,7 +171,26 @@ redis-cli -h redis ping</code></pre>
   <p>List files:</p>
   <pre><code>ls</code></pre>
 
-  <p>🚢 Welcome to the Docker world!</p>
+  <h3>Adminer</h3>
+  <p>Access via:</p>
+  <pre><code>https://&lt;your-login&gt;.42.fr/adminer</code></pre>
+  <p>Login with:</p>
+  <ul>
+    <li>System: MySQL</li>
+    <li>Server: mariadb</li>
+    <li>Username: &lt;your-login&gt;</li>
+    <li>Password: 1234</li>
+    <li>Database: wordpress</li>
+  </ul>
+
+  <h3>Netdata</h3>
+  <p>Access via:</p>
+  <pre><code>https://&lt;your-login&gt;.42.fr/netdata</code></pre>
+  <p>Login and explore live performance metrics.</p>
+
+  <h3>Static Web Page</h3>
+  <p>You can view this README page by visiting:</p>
+  <pre><code>https://&lt;your-login&gt;.42.fr/index.html</code></pre>
 
   <hr />
 
@@ -159,5 +198,6 @@ redis-cli -h redis ping</code></pre>
   <ul>
     <li>lguerbig</li>
   </ul>
+
 </body>
 </html>

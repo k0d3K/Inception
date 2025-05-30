@@ -56,7 +56,7 @@ make
 
 This will:
 - Print a cool ASCII logo 😎
-- Build the containers images
+- Build the containers image
 - Create required volumes under `/home/<your-login>/data/`
 - Start all containers in the background
 
@@ -76,23 +76,26 @@ Docker is a platform that enables you to package and run applications in isolate
 
 ### Containers used in this project
 
-- **Nginx**:  
-  This is the web server. It handles all the requests from your browser, shows static files like images, and sends PHP requests to the WordPress container. It also makes sure your website uses HTTPS (secure connection).
+- **Nginx**:
+	This is the web server. It handles all the requests from your browser, shows static files like images, and sends PHP requests to the WordPress container. It also makes sure your website uses HTTPS (secure connection).
 
-- **MariaDB**:  
-  This is the database. It stores all the data for your WordPress site, like posts, user accounts, and settings.
+- **MariaDB**:
+	This is the database. It stores all the data for your WordPress site, like posts, user accounts, and settings.
 
-- **WordPress (with PHP-FPM)**:  
-  This runs the WordPress software that creates your website. It uses PHP to generate pages and talks to the MariaDB database to get the data it needs.
+- **WordPress (with PHP-FPM)**:
+	This runs the WordPress software that creates your website. It uses PHP to generate pages and talks to the MariaDB database to get the data it needs.
 
-- **Redis (optional bonus)**:  
-  This is a fast memory storage used to keep temporary data. It helps make your website faster by reducing how often WordPress needs to ask the database for information.
+- **Redis (optional bonus)**:
+	This is a fast memory storage used to keep temporary data. It helps make your website faster by reducing how often WordPress needs to ask the database for information.
 
-- **FTP server (optional bonus)**:  
-  Lets you download, upload and manage files on your WordPress site using the FTP protocol.
+- **FTP server (optional bonus)**:
+	Lets you download, upload and manage files on your WordPress site using the FTP protocol.
 
-- **Adminer (optional bonus)**:  
-  A simple web tool to manage your database. It lets you look at and change your MariaDB data through your browser.
+- **Adminer (optional bonus)**:
+	A simple web tool to manage your database. It lets you look at and change your MariaDB data through your browser.
+
+- **Netdata (optional bonus)**:
+	Netdata is a real-time performance monitoring tool. It helps you visualize and troubleshoot what's happening in your containers, system, and applications.
 
 All these containers work together inside Docker, each doing their own job but talking to each other so your website runs smoothly.
 
@@ -103,11 +106,11 @@ All these containers work together inside Docker, each doing their own job but t
 ### 🌐 Manda
 
 Connect to `<your-login>.42.fr` on firefox. It handles self-signed certificates best.
-You will see a warning "Potential Security Risk Ahead" due to self-signed certificate, you can safely click oin `Advanced...` and then `Accept the Risk and Continue`.
+You will see a warning "Potential Security Risk Ahead" due to self-signed certificate, you can safely click on `Advanced...` and then `Accept the Risk and Continue`.
 
 ### Redis cache system
 
-To check that the Redis chache sytemt is working proprely you can ping the server inside the Redis container:
+To check that the Redis chache system is working properly you can ping the server inside the Redis container:
 ```
 docker exec -it redis sh
 redis-cli -h redis ping
@@ -133,7 +136,7 @@ The `ls` command can then list the files in the server current directory.
 
 ### Adminer
 
-You can acces it trought :
+You can access it trought:
 ```
 https://<your-login>.42.fr/adminer
 ```
@@ -143,6 +146,21 @@ In the login form, enter:
 	- Username: <your-login>
 	- Password: 1234
 	- Database: wordpress
+
+### Netdata
+
+You can access it trought:
+```
+https://<your-login>.42.fr/netdata
+```
+Login and explore.
+
+### My own web static page
+
+You can see the README of this project by acceesing:
+```
+https://<your-login>.42.fr/index.htlm
+```
 
 ---
 

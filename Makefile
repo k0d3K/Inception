@@ -2,6 +2,7 @@
 
 LOGIN			=	$(USER)
 DISPLAY_TRACKER	:=	.display_done
+COMPOSE_BAKE	=	true
 
 #==================== COLOR =====================#
 
@@ -36,7 +37,8 @@ $(DISPLAY_TRACKER):
 up		: $(DISPLAY_TRACKER)
 		mkdir -p /home/$(LOGIN)/data/mariadb
 		mkdir -p /home/$(LOGIN)/data/wordpress
-		mkdir -p /home/$(LOGIN)/data/adminer
+		mkdir -p /home/$(LOGIN)/data/redis
+		mkdir -p /home/$(LOGIN)/data/netdata
 		docker compose -f ./srcs/docker-compose.yml up -d
 
 down	:

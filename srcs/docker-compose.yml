@@ -15,6 +15,15 @@ volumes:
       o: bind
       type: none
 
+  # BONUS
+  netdata:
+    name: netdata
+    driver: local
+    driver_opts:
+      device: /home/${LOGIN}/data/netdata
+      o: bind
+      type: none
+
 services:
   nginx:
     container_name: nginx
@@ -63,10 +72,8 @@ services:
   # BONUS
   redis:
     container_name: redis
-    image: redis:42
     build: requirements/bonus/redis
-    volumes:
-      - wordpress:/var/www/html
+    image: redis:42
     networks:
       - inception
     restart: on-failure
@@ -79,7 +86,7 @@ services:
       - "21:21"
       - "21100-21110:21100-21110"
     volumes:
-      - "wordpress:/var/www/html"
+      - wordpress:/var/www/html
     depends_on:
       - wordpress
     env_file:
@@ -90,13 +97,35 @@ services:
 
   adminer:
     container_name: adminer
-    image: adminer:42
     build: ./requirements/bonus/adminer
+    image: adminer:42
     networks:
       - inception
     depends_on:
       - wordpress
       - mariadb
+    restart: on-failure
+
+  netdata:
+    container_name: netdata
+    build: ./requirements/bonus/netdata
+    image: netdata:42
+    pid: host
+    networks:
+      - inception
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    ports:
+      - "19999:19999"
+    volumes:
+      - netdata:/var/lib/netdata
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
     restart: on-failure
 
 networks:

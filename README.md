@@ -94,8 +94,8 @@ Docker is a platform that enables you to package and run applications in isolate
 - **Adminer (optional bonus)**:
 	A simple web tool to manage your database. It lets you look at and change your MariaDB data through your browser.
 
-- **Netdata (optional bonus)**:
-	Netdata is a real-time performance monitoring tool. It helps you visualize and troubleshoot what's happening in your containers, system, and applications.
+- **Glances (optional bonus)**:
+	Glances is a light real-time performance monitoring tool. It helps you visualize and troubleshoot what's happening in your containers, system, and applications.
 
 All these containers work together inside Docker, each doing their own job but talking to each other so your website runs smoothly.
 
@@ -147,13 +147,13 @@ In the login form, enter:
 	- Password: 1234
 	- Database: wordpress
 
-### Netdata
+### Glances
 
 You can access it trought:
 ```
-https://<your-login>.42.fr/netdata
+https://<your-login>.42.fr/glances
 ```
-Login and explore.
+Login and explore live performance metrics.
 
 ### My own web static page
 

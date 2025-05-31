@@ -16,11 +16,11 @@ volumes:
       type: none
 
   # BONUS
-  netdata:
-    name: netdata
+  glances:
+    name: glances
     driver: local
     driver_opts:
-      device: /home/${LOGIN}/data/netdata
+      device: /home/${LOGIN}/data/glances
       o: bind
       type: none
 
@@ -106,10 +106,10 @@ services:
       - mariadb
     restart: on-failure
 
-  netdata:
-    container_name: netdata
-    build: ./requirements/bonus/netdata
-    image: netdata:42
+  glances:
+    container_name: glances
+    build: ./requirements/bonus/glances
+    image: glances:42
     pid: host
     networks:
       - inception
@@ -118,14 +118,9 @@ services:
     security_opt:
       - apparmor:unconfined
     ports:
-      - "19999:19999"
+      - "61208:61208"
     volumes:
-      - netdata:/var/lib/netdata
-      - /etc/passwd:/host/etc/passwd:ro
-      - /etc/group:/host/etc/group:ro
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /etc/os-release:/host/etc/os-release:ro
+      - glances:/root/.config/glances
     restart: on-failure
 
 networks:

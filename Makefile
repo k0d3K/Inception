@@ -38,7 +38,7 @@ up		: $(DISPLAY_TRACKER)
 		mkdir -p /home/$(LOGIN)/data/mariadb
 		mkdir -p /home/$(LOGIN)/data/wordpress
 		mkdir -p /home/$(LOGIN)/data/redis
-		mkdir -p /home/$(LOGIN)/data/netdata
+		mkdir -p /home/$(LOGIN)/data/glances
 		docker compose -f ./srcs/docker-compose.yml up -d
 
 down	:

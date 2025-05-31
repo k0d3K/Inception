@@ -61,7 +61,7 @@ fclean	: clean
 
 re		: fclean all
 
-.PHONY	=	all down clean fclean re
+.PHONY	=	all up down clean fclean re
 
 ifndef VERBOSE
 .SILENT:

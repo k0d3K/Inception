@@ -74,6 +74,12 @@ You can log in by accessing `https://<your-login>.42.fr/wp-admin`.
 
 Docker is a platform that enables you to package and run applications in isolated environments called containers. Each container contains everything needed to run a piece of software, including code, runtime, libraries, and system tools. This makes your application portable, consistent, and easy to deploy across different environments.
 
+### What is Docker Compose ?
+
+Docker Compose lets you run mutiple containers togethers using just one configuration file (docker-compose.yml)
+Without docker compose, you run containers manually with `docker run`, passing all options (ports, volumes, etc...) in the command line. It's repetitive and hard to manage.
+With docker compose, everything (images, volumes, networks, env variables) is described in one YAML file, and you start everything with one command, `docker-compose up`.
+
 ### Containers used in this project
 
 - **Nginx**:
@@ -107,6 +113,27 @@ All these containers work together inside Docker, each doing their own job but t
 
 Connect to `<your-login>.42.fr` on firefox. It handles self-signed certificates best.
 You will see a warning "Potential Security Risk Ahead" due to self-signed certificate, you can safely click on `Advanced...` and then `Accept the Risk and Continue`.
+
+To acces the SQL database, you first need to be able to execuite commands in the mariadb container. To do so, run:
+```
+docker exec -it mariadb bash 
+```
+Once you in the mariadb container, you can log in the database with the following command:
+```
+mysql -u<user> -p<password>
+```
+Then, you can check you wordpress database is present with the following SQL command:
+```
+SHOW DATABASES;
+```
+You can acces it trought:
+```
+USE wordpress;
+```
+Then you can check content with:
+```
+SHOW TABLES;
+```
 
 ### Redis cache system
 

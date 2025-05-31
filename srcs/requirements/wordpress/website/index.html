@@ -66,7 +66,7 @@
     A Docker-based project to set up a fully functional WordPress website with Nginx, MariaDB, and PHP-FPM — as required by the 42 Inception project.
   </blockquote>
 
-  <h2><span class="emoji">🧩</span> Overview</h2>
+  <h2><span class="emoji"></span>🧩</span> Overview</h2>
   <p>This project automates the deployment of a WordPress site using Docker containers. It includes:</p>
   <ul>
     <li><strong>Nginx</strong>: Web server with HTTPS enabled via a self-signed certificate.</li>
@@ -103,26 +103,24 @@
   <hr />
 
   <h3><span class="emoji">🛠️</span> Setup & Launch</h3>
-  <p>Edit your local <code>/etc/hosts</code> file and add:</p>
+  <p>Add the following to your <code>/etc/hosts</code> file:</p>
   <pre><code>127.0.0.1 &lt;your-login&gt;.42.fr</code></pre>
-  <p>Edit using:</p>
+  <p>Edit the file with:</p>
   <pre><code>sudo nano /etc/hosts</code></pre>
-  <p>Then in the project root:</p>
+  <p>Then in the project root, run:</p>
   <pre><code>make</code></pre>
   <p>This will:</p>
   <ul>
     <li>Print a cool ASCII logo 😎</li>
-    <li>Build the containers</li>
+    <li>Build the container images</li>
     <li>Create volumes under <code>/home/&lt;your-login&gt;/data/</code></li>
-    <li>Start containers in the background</li>
+    <li>Start all containers in the background</li>
   </ul>
 
-  <hr />
-
   <h3><span class="emoji">🔐</span> HTTPS Certificate</h3>
-  <p>Self-signed certificate in use. Browser may warn on:</p>
+  <p>This project uses a self-signed certificate. Your browser may warn you when visiting:</p>
   <pre><code>https://&lt;your-login&gt;.42.fr</code></pre>
-  <p>Admin login at:</p>
+  <p>Admin login:</p>
   <pre><code>https://&lt;your-login&gt;.42.fr/wp-admin</code></pre>
 
   <hr />
@@ -130,17 +128,22 @@
   <h2><span class="emoji">🧠</span> Quick explanations</h2>
 
   <h3>What is Docker?</h3>
-  <p>Docker lets you package and run applications in isolated environments called containers. Each container contains everything it needs to run — making deployment reliable and portable.</p>
+  <p>Docker is a platform that packages applications into containers—isolated environments containing everything needed to run them. It ensures consistency and portability across systems.</p>
+
+  <h3>What is Docker Compose?</h3>
+  <p>Docker Compose runs multiple containers using a single config file (<code>docker-compose.yml</code>).</p>
+  <p>Without it, you'd manually run containers using <code>docker run</code> with many flags. It's tedious.</p>
+  <p>With it, one <code>docker-compose up</code> starts everything defined in the YAML file.</p>
 
   <h3>Containers used in this project</h3>
   <ul>
-    <li><strong>Nginx:</strong> The web server that handles requests and manages HTTPS.</li>
-    <li><strong>MariaDB:</strong> Stores your WordPress content and settings.</li>
-    <li><strong>WordPress with PHP-FPM:</strong> Runs WordPress logic, generates pages, and connects to MariaDB.</li>
-    <li><strong>Redis (bonus):</strong> In-memory cache to speed up the site.</li>
-    <li><strong>FTP server (bonus):</strong> Lets you transfer files in/out of the site.</li>
-    <li><strong>Adminer (bonus):</strong> Browser-based tool to manage the database.</li>
-    <li><strong>Glances (bonus):</strong> Real-time monitoring dashboard for your stack.</li>
+    <li><strong>Nginx:</strong> Handles requests, serves static files, and manages HTTPS.</li>
+    <li><strong>MariaDB:</strong> Stores WordPress data.</li>
+    <li><strong>WordPress with PHP-FPM:</strong> Runs WordPress, connects to the DB.</li>
+    <li><strong>Redis (bonus):</strong> Memory-based cache to improve performance.</li>
+    <li><strong>FTP server (bonus):</strong> Allows file transfer in/out of the container.</li>
+    <li><strong>Adminer (bonus):</strong> Web-based DB management interface.</li>
+    <li><strong>Glances (bonus):</strong> Real-time performance monitoring dashboard.</li>
   </ul>
 
   <hr />
@@ -148,22 +151,29 @@
   <h2><span class="emoji">✅</span> Test everything</h2>
 
   <h3><span class="emoji">🌐</span> Manda</h3>
-  <p>Access the site in Firefox. Accept the self-signed certificate:</p>
+  <p>Access the site in Firefox and accept the self-signed certificate:</p>
   <ul>
     <li>Click "Advanced..."</li>
     <li>Then "Accept the Risk and Continue"</li>
   </ul>
+  <p>To access MySQL manually:</p>
+  <pre><code>docker exec -it mariadb bash
+mysql -u&lt;user&gt; -p&lt;password&gt;
+SHOW DATABASES;
+USE wordpress;
+SHOW TABLES;
+</code></pre>
 
   <h3>Redis cache system</h3>
-  <p>Check Redis is active:</p>
+  <p>Ping the Redis container:</p>
   <pre><code>docker exec -it redis sh
 redis-cli -h redis ping</code></pre>
-  <p>Should return <code>PONG</code>.</p>
+  <p>Should return: <code>PONG</code></p>
 
   <h3>FTP Server</h3>
-  <p>Access with:</p>
+  <p>Access using:</p>
   <pre><code>ftp localhost 21</code></pre>
-  <p>Login as <code>&lt;your-login&gt;</code>, password <code>1234</code> (from <code>.env</code>).</p>
+  <p>Login as <code>&lt;your-login&gt;</code>, password: <code>1234</code> (from <code>.env</code>).</p>
   <p>Download:</p>
   <pre><code>get &lt;filename&gt;</code></pre>
   <p>Upload:</p>
@@ -172,7 +182,7 @@ redis-cli -h redis ping</code></pre>
   <pre><code>ls</code></pre>
 
   <h3>Adminer</h3>
-  <p>Access via:</p>
+  <p>Visit:</p>
   <pre><code>https://&lt;your-login&gt;.42.fr/adminer</code></pre>
   <p>Login with:</p>
   <ul>
@@ -184,20 +194,21 @@ redis-cli -h redis ping</code></pre>
   </ul>
 
   <h3>Glances</h3>
-  <p>Access via:</p>
+  <p>Visit:</p>
   <pre><code>https://&lt;your-login&gt;.42.fr/glances</code></pre>
-  <p>Login and explore live performance metrics.</p>
+  <p>Monitor your stack in real-time.</p>
 
   <h3>Static Web Page</h3>
-  <p>You can view this README page by visiting:</p>
+  <p>To view this README in your browser:</p>
   <pre><code>https://&lt;your-login&gt;.42.fr/index.html</code></pre>
 
   <hr />
 
-  <h3>👨‍💻 Author</h3>
+  <h3><span class="emoji">👨‍💻</span> Author</h3>
   <ul>
     <li>lguerbig</li>
   </ul>
 
+  <p>🚢 Welcome to the Docker world!</p>
 </body>
 </html>
